@@ -21,7 +21,6 @@ export function useCreatePost() {
       const queryFilter = {
         queryKey: ["post-feed"],
         predicate(query) {
-          console.log(query);
           return (
             query.queryKey.includes("for-you") ||
             (query.queryKey.includes("user-posts") &&
