@@ -8,6 +8,7 @@ import { useSession } from "../providers/session-provider";
 import PostMoreButton from "./post-more-button";
 import Linkify from "../linkfiy/linkify";
 import UserTooltip from "../user-tooltip";
+import MediasPreview from "./medias-preview/medias-preview";
 
 interface PostProps {
   post: PostData;
@@ -52,6 +53,7 @@ export default function Post({ post }: PostProps) {
       <Linkify>
         <div className="whitespace-pre-line break-words">{post.content}</div>
       </Linkify>
+      {!!post.attachments.length && <MediasPreview medias={post.attachments} />}
     </article>
   );
 }
