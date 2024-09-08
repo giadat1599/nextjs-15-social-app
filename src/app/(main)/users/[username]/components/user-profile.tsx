@@ -1,11 +1,12 @@
 import FollowButton from "@/components/follow-button";
 import FollowerCount from "@/components/follower-count";
 import Linkify from "@/components/linkfiy/linkify";
-import { Button } from "@/components/ui/button";
+
 import UserAvatar from "@/components/user-avatar";
 import { FollowerInfo, UserData } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { formatDate } from "date-fns";
+import EditProfileButton from "./edit-profile/edit-profile-button";
 
 interface UserProfileProps {
   user: UserData;
@@ -48,7 +49,7 @@ export default async function UserProfile({
           </div>
         </div>
         {user.id === loggedInUserId ? (
-          <Button>Edit profile</Button>
+          <EditProfileButton user={user} />
         ) : (
           <FollowButton userId={user.id} initialState={followerInfo} />
         )}
