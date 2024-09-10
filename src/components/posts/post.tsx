@@ -9,6 +9,7 @@ import PostMoreButton from "./post-more-button";
 import Linkify from "../linkfiy/linkify";
 import UserTooltip from "../user-tooltip";
 import MediasPreview from "./medias-preview/medias-preview";
+import LikeButton from "../like-button";
 
 interface PostProps {
   post: PostData;
@@ -55,6 +56,16 @@ export default function Post({ post }: PostProps) {
         <div className="whitespace-pre-line break-words">{post.content}</div>
       </Linkify>
       {!!post.attachments.length && <MediasPreview medias={post.attachments} />}
+      <hr className="text-muted-foreground" />
+      <LikeButton
+        postId={post.id}
+        initialState={{
+          likes: post._count.likes,
+          isLikedByLoggedInUser: post.likes.some(
+            ({ userId }) => userId === user.id,
+          ),
+        }}
+      />
     </article>
   );
 }
