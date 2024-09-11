@@ -11,6 +11,9 @@ import UserTooltip from "../user-tooltip";
 import MediasPreview from "./medias-preview/medias-preview";
 import LikeButton from "../like-button";
 import BookmarkButton from "../bookmark-button";
+import { useState } from "react";
+import CommentButton from "../comments/comment-button";
+import Comments from "../comments/comments";
 
 interface PostProps {
   post: PostData;
@@ -18,6 +21,7 @@ interface PostProps {
 
 export default function Post({ post }: PostProps) {
   const { user } = useSession();
+  const [showComments, setShowComments] = useState(false);
   return (
     <article className="group/post space-y-3 rounded-2xl bg-card p-5 shadow-sm">
       <div className="flex justify-between gap-3">
@@ -59,15 +63,21 @@ export default function Post({ post }: PostProps) {
       {!!post.attachments.length && <MediasPreview medias={post.attachments} />}
       <hr className="text-muted-foreground" />
       <div className="flex justify-between gap-5">
-        <LikeButton
-          postId={post.id}
-          initialState={{
-            likes: post._count.likes,
-            isLikedByLoggedInUser: post.likes.some(
-              ({ userId }) => userId === user.id,
-            ),
-          }}
-        />
+        <div className="flex items-center gap-5">
+          <LikeButton
+            postId={post.id}
+            initialState={{
+              likes: post._count.likes,
+              isLikedByLoggedInUser: post.likes.some(
+                ({ userId }) => userId === user.id,
+              ),
+            }}
+          />
+          <CommentButton
+            post={post}
+            onClick={() => setShowComments(!showComments)}
+          />
+        </div>
         <BookmarkButton
           postId={post.id}
           initialState={{
@@ -77,6 +87,7 @@ export default function Post({ post }: PostProps) {
           }}
         />
       </div>
+      {showComments && <Comments post={post} />}
     </article>
   );
 }
