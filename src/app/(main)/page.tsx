@@ -1,9 +1,9 @@
 import PostEditor from "../../components/posts/editor/post-editor";
 
 import TrendingSidebar from "@/components/trending-sidebar/trending-sidebar";
-import ForYouFeed from "./components/for-you-feed";
+import ForYouFeed from "./posts/components/for-you-feed";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import FollowingFeed from "./components/following-feed";
+import FollowingFeed from "./posts/components/following-feed";
 
 export default function Home() {
   return (
